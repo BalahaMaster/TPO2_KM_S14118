@@ -1,5 +1,7 @@
 package zad1.Model;
 
+import java.util.List;
+
 public class Author {
     private static String tableName = "AUTOR";
     private int id;
@@ -32,5 +34,14 @@ public class Author {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static String[] createInsert(List<Author> authors){
+        String[] valuesString = new String[authors.size()];
+
+        for(Author a : authors){
+            valuesString[authors.indexOf(a)] = "(" + a.id + ",'" + a.getName() + "')";
+        }
+        return valuesString;
     }
 }

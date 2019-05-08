@@ -15,13 +15,13 @@ public class DbConnection {
     }
 
     public void setUpConnection() {
-
         try {
             Class.forName(driverName);
             con = DriverManager.getConnection(url);
-        } catch (ClassNotFoundException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

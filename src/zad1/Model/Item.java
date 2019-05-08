@@ -1,6 +1,9 @@
 package zad1.Model;
 
+import java.util.List;
+
 public class Item {
+    private static String tableName = "POZYCJE";
     private String ISBN;
     private int authId;
     private String title;
@@ -9,12 +12,16 @@ public class Item {
     private float price;
 
     public Item(String ISBN, int authId, String title, int publisherId, int year, float price) {
-        this.ISBN = ISBN;
+        this.ISBN = ISBN.replaceAll("-", "");
         this.authId = authId;
         this.title = title;
         this.publisherId = publisherId;
         this.year = year;
         this.price = price;
+    }
+
+    public static String getTableName() {
+        return tableName;
     }
 
     public String getISBN() {
@@ -63,5 +70,14 @@ public class Item {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public static String[] createInsert(List<Item> items){
+        String[] valuesString = new String[items.size()];
+
+        for(Item i : items){
+            valuesString[items.indexOf(i)] = "('" + i.ISBN  + "'," + i.authId + ",'" + i.title + "'," + i.publisherId + "," + i.year + "," + i.price + ")";
+        }
+        return valuesString;
     }
 }

@@ -53,7 +53,7 @@ public class DbTable {
         return id;
     }
 
-    public void insert(String[] values) throws Exception {
+    public int insert(String[] values) throws Exception {
         StringBuilder columnNamesString = new StringBuilder();
         columnNamesString.append("(");
         columnNamesString.append(String.join(",", columnNames));
@@ -63,14 +63,14 @@ public class DbTable {
         try {
             dbcon.setUpConnection();
             PreparedStatement statement = dbcon.getCon().prepareStatement(query);
-            System.out.println(statement.executeUpdate());
+            return statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         finally {
             dbcon.close();
         }
-
+        return -1;
     }
 
 }
